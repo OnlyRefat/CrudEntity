@@ -1,0 +1,9 @@
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\bin\Debug\TestL2_1.exe.config
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\bin\Debug\TestL2_1.exe
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\bin\Debug\TestL2_1.pdb
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\bin\Debug\EntityFramework.dll
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\bin\Debug\EntityFramework.xml
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\obj\Debug\TestL2_1.exe
+c:\users\rafi\documents\visual studio 2013\Projects\TestL2_1\TestL2_1\obj\Debug\TestL2_1.pdb

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="OHs" Relationship="Self.FK_OH_Customer" FromRole="Customer" ToRole="OH" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Customer" FromRole="Customer" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="OD">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="OrderHistory" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OH" Relationship="Self.FK_OD_OH" FromRole="OD" ToRole="OH" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_OD_Product" FromRole="OD" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="OH">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="OD" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_OH_Customer" FromRole="OH" ToRole="Customer" />
+    <NavigationProperty Name="ODs" Relationship="Self.FK_OD_OH" FromRole="OH" ToRole="OD" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CustomerId" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Product_Customer" FromRole="Product" ToRole="Customer" />
+    <NavigationProperty Name="ODs" Relationship="Self.FK_OD_Product" FromRole="Product" ToRole="OD" />
+  </EntityType>
+  <EntityType Name="Table">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_OH_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="OH" Type="Self.OH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OH">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OD_OH">
+    <End Role="OH" Type="Self.OH" Multiplicity="1" />
+    <End Role="OD" Type="Self.OD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OH">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OD">
+        <PropertyRef Name="OrderHistory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OD_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OD" Type="Self.OD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OD">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="ODs" EntityType="Self.OD" />
+    <EntitySet Name="OHs" EntityType="Self.OH" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Tables" EntityType="Self.Table" />
+    <AssociationSet Name="FK_OH_Customer" Association="Self.FK_OH_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="OH" EntitySet="OHs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Customer" Association="Self.FK_Product_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OD_OH" Association="Self.FK_OD_OH">
+      <End Role="OH" EntitySet="OHs" />
+      <End Role="OD" EntitySet="ODs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OD_Product" Association="Self.FK_OD_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OD" EntitySet="ODs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
